@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 400px;
+  --font-instrument: "Instrument Serif", serif;
+}
+
+@font-face {
+  font-family: "Helvetica Neue Roman";
+  src:
+    url("/fonts/HelveticaNeue-Roman.woff2") format("woff2"),
+    url("/fonts/HelveticaNeue-Roman.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
+.font-helvetica-neue {
+  font-family: "Helvetica Neue Roman", "Inter", sans-serif;
+}
+
+.font-instrument {
+  font-family: "Instrument Serif", serif;
+}
+
+/* Liquid glass effect */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.liquid-glass:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Scroll progress */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4ade80, #a3e635, #ffffff);
+  z-index: 100;
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* Custom cursor scale target */
+.cursor-scale {
+  cursor: none;
+}
+
+/* Stagger menu animations */
+@keyframes menuSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menuCloseIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.menu-item-enter {
+  opacity: 0;
+  animation: menuSlideUp 0.6s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+.menu-close-enter {
+  opacity: 0;
+  animation: menuCloseIn 0.5s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.8s cubic-bezier(0.77, 0, 0.18, 1),
+    transform 0.8s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pulse green dot */
+@keyframes softPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5);
+  }
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+  }
+}
+
+.pulse-dot {
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+/* Research card spotlight */
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    400px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* Timeline line */
+.timeline-line {
+  background: linear-gradient(
+    180deg,
+    rgba(74, 222, 128, 0.6) 0%,
+    rgba(74, 222, 128, 0.15) 70%,
+    transparent 100%
+  );
+}
+
+/* Selection */
+::selection {
+  background: rgba(74, 222, 128, 0.3);
+  color: #fff;
+}
+
+/* Hide scrollbar but keep functionality */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Mono tiny label */
+.mono-label {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+  letter-spacing: 0.25em;
+  font-size: 10px;
+  text-transform: uppercase;
+}
